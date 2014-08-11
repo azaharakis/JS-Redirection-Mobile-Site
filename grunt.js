@@ -53,6 +53,6 @@ module.exports = function( grunt ) {
 	});
 
 	// Default task.
-	grunt.registerTask('default', 'lint jasmine min');
+	grunt.registerTask('default', 'jasmine min');
 	grunt.registerTask('travis', 'jasmine');
 };
