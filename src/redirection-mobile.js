@@ -107,24 +107,14 @@ SA.redirection_mobile = function(configuration) {
     // querystring there is a parameter to avoid the redirection such as "?noredireciton=true"
     // (in that case we need to set a variable in the sessionStorage or in the cookie)
     if (document.referrer.indexOf(mobile_host) >= 0 || queryValue === TRUE ) {
-
-        if (window.sessionStorage) {
-            window.sessionStorage.setItem(redirection_param, TRUE);
-        } else {
-            document.cookie = redirection_param + "=" + TRUE + ";expires="+
-                addTimeToDate(3600*1000*cookie_hours).toUTCString();
-        }
+        document.cookie = redirection_param + "=" + TRUE + ";expires="+
+            addTimeToDate(3600*1000*cookie_hours).toUTCString();
     }
 
-    // Check if the sessionStorage contain the parameter
-    var isSessionStorage = (window.sessionStorage) ?
-            (window.sessionStorage.getItem(redirection_param) === TRUE) :
-            false,
-
     // Check if the Cookie has been set up
-        isCookieSet = document.cookie ?
-            (document.cookie.indexOf(redirection_param) >= 0) :
-            false;
+    isCookieSet = document.cookie ?
+        (document.cookie.indexOf(redirection_param) >= 0) :
+        false;
 
     // Check if the device is a Tablet such as iPad, Samsung Tab, Motorola Xoom or Amazon Kindle
     if (!!(agent.match(/(iPad|SCH-I|xoom|NOOK|silk|kindle|GT-P|touchpad|kindle|sch-t|viewpad|bolt|playbook|Nexus 7)/i))) {
@@ -135,7 +125,7 @@ SA.redirection_mobile = function(configuration) {
     }
 
     // Check that User Agent is mobile, cookie is not set or value in the sessionStorage not present
-    if ((isUATablet || isUAMobile) && !(isCookieSet || isSessionStorage)) {
+    if ((isUATablet || isUAMobile) && !isCookieSet) {
 
         // Callback call
         if (config.beforeredirection_callback) {
