@@ -103,10 +103,9 @@ SA.redirection_mobile = function(configuration) {
         isUAMobile = true;
     }
 
-    // Check if the referrer was a mobile page (probably the user clicked "Go to full site") or in the
-    // querystring there is a parameter to avoid the redirection such as "?noredireciton=true"
-    // (in that case we need to set a variable in the sessionStorage or in the cookie)
-    if (document.referrer.indexOf(mobile_host) >= 0 || queryValue === TRUE ) {
+    // in the querystring there is a parameter to avoid the redirection such as "?noredireciton=true"
+    // (in that case we need to set a variable in the cookie)
+    if ( queryValue === TRUE ) {
         document.cookie = redirection_param + "=" + TRUE + ";expires="+
             addTimeToDate(3600*1000*cookie_hours).toUTCString();
     }
@@ -124,7 +123,7 @@ SA.redirection_mobile = function(configuration) {
         isUAMobile = false;
     }
 
-    // Check that User Agent is mobile, cookie is not set or value in the sessionStorage not present
+    // Check that User Agent is mobile, cookie is not set
     if ((isUATablet || isUAMobile) && !isCookieSet) {
 
         // Callback call
